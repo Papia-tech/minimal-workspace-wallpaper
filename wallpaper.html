@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Workspace Wallpaper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #e3ede6;
+            --accent-soft: rgba(188, 214, 197, 0.8);
+            --accent-soft-hover: rgba(141, 186, 156, 0.9);
+            --accent-dark: #132a20;
+            --accent-pink: #d15b5b; 
+            --accent-pink-solid: rgba(209, 91, 91, 0.12);
+            --accent-pink-leaf: rgba(209, 91, 91, 0.22);
+            --accent-pink-glow: rgba(209, 91, 91, 0.2);
+            --stroke-dark-accent: rgba(27, 67, 50, 0.35);
+            --stroke-dark-fine: rgba(27, 67, 50, 0.15);
+            --text-main: #132a20;
+            --text-muted: #41584c;
+            --shadow-sm: 0 4px 24px rgba(19, 42, 32, 0.06);
+            --shadow-md: 0 12px 40px rgba(19, 42, 32, 0.1);
+            --container-bg: rgba(255, 255, 255, 0.55);
+            --search-bg: rgba(255, 255, 255, 0.65);
+            --search-focus-bg: rgba(255, 255, 255, 0.95);
+            --dock-item-bg: rgba(255, 255, 255, 0.85);
+            --dock-hover-text: #fff;
+        }
+
+        /* --- DARK THEME OVERRIDES --- */
+        [data-theme="dark"] {
+            --bg-color: #0f1a14;
+            --accent-soft: rgba(27, 67, 50, 0.8);
+            --accent-soft-hover: rgba(41, 92, 69, 0.9);
+            --accent-dark: #a3ccb5;
+            --accent-pink: #e68a8a; 
+            --accent-pink-solid: rgba(230, 138, 138, 0.08);
+            --stroke-dark-accent: rgba(163, 204, 181, 0.25);
+            --stroke-dark-fine: rgba(163, 204, 181, 0.1);
+            --text-main: #e3ede6;
+            --text-muted: #809c8c;
+            --shadow-sm: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
+            --container-bg: rgba(19, 42, 32, 0.45);
+            --search-bg: rgba(19, 42, 32, 0.55);
+            --search-focus-bg: rgba(19, 42, 32, 0.85);
+            --dock-item-bg: rgba(27, 67, 50, 0.5);
+            --dock-hover-text: #0f1a14;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--stroke-dark-fine) 1px, transparent 1px),
+                linear-gradient(90deg, var(--stroke-dark-fine) 1px, transparent 1px);
+            background-size: 50px 50px;
+            color: var(--text-main);
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.4s ease;
+        }
+
+        /* --- BACKGROUND ARTWORK LAYER --- */
+        .css-artwork-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .stroke-curve-left {
+            position: absolute;
+            top: 10%;
+            left: -10%;
+            width: 35vw;
+            height: 80vh;
+            border-right: 2.5px dashed var(--stroke-dark-accent);
+            border-radius: 50%;
+        }
+
+        .stroke-curve-bottom {
+            position: absolute;
+            bottom: -15vh; 
+            left: 15vw;
+            width: 40vw;
+            height: 40vh;
+            border-top: 5px solid var(--stroke-dark-accent);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .stroke-ring-right {
+            position: absolute;
+            bottom: 0vh; 
+            right: -5vw;
+            width: 450px;
+            height: 450px;
+            border: 2px solid var(--stroke-dark-fine);
+            border-radius: 50%;
+        }
+
+        .solid-dot-top-right {
+            position: absolute;
+            top: 25%;
+            right: 35vw;
+            width: 20px;
+            height: 20px;
+            background-color: var(--stroke-dark-accent);
+            border-radius: 50%;
+        }
+
+        .css-blob-navbar {
+            position: absolute;
+            top: 15%;
+            left: -100px;
+            width: 400px;
+            height: 700px;
+            background-color: var(--accent-pink-solid);
+            filter: blur(50px);
+            border-radius: 50%;
+        }
+
+        /* --- BOTTOM RIGHT CORNER ORGANIC LEAF --- */
+        .leaf-artwork-wrapper {
+            position: absolute;
+            bottom: 40px; 
+            right: -20px;
+            width: 380px;
+            height: 440px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.95;
+        }
+
+        .bg-leaf-artwork {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            z-index: 2; 
+            transition: filter 0.4s ease;
+        }
+        
+        /* THIS FIXES THE BLACK LEAF IN DARK MODE */
+        [data-theme="dark"] .bg-leaf-artwork {
+            filter: invert(1) brightness(0.9) sepia(0.1) hue-rotate(90deg);
+        }
+
+        /* --- PREMIUM TIME WIDGET --- */
+        .widget-clock {
+            position: absolute;
+            top: 12%;
+            left: 12%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #time {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 7.5rem; 
+            font-weight: 700;
+            color: var(--accent-dark);
+            line-height: 0.9;
+            letter-spacing: -3px;
+            margin-bottom: 8px;
+            transition: color 0.4s ease;
+        }
+
+        .clock-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 6px;
+        }
+
+        #day-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .clock-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        #date {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* --- SEARCH HUB WITH THEME TOGGLE --- */
+        .search-container {
+            position: absolute;
+            top: 40px;
+            right: 24px;
+            z-index: 10;
+            width: 360px; 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-form-wrapper {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 40px 12px 42px; 
+            border-radius: 30px;
+            border: 1.5px solid var(--stroke-dark-accent);
+            background: var(--search-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-box::placeholder {
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
+
+        .search-box:focus {
+            background: var(--search-focus-bg);
+            border-color: var(--accent-dark); 
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-form-wrapper .search-icon {
+            position: absolute;
+            left: 18px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            pointer-events: none;
+        }
+
+        .search-actions-right {
+            position: absolute;
+            right: 18px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+        }
+
+        .search-actions-right i {
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        /* Inline Header Theme Toggle */
+        .header-theme-toggle {
+            width: 66px;
+            height: 46px;
+            background: var(--search-bg);
+            border: 1.5px solid var(--stroke-dark-accent);
+            color: var(--accent-dark);
+            border-radius: 10px;
+            padding-right: 12px;
+            padding-left: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            outline: none;
+        }
+
+        .header-theme-toggle:hover {
+            background-color: var(--accent-dark);
+            color: var(--dock-hover-text);
+            transform: scale(1.08);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* --- BACKGROUND QUOTE TEXT --- */
+        .center-quote-container {
+            position: absolute;
+            bottom: 22%; 
+            left: 12%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .center-quote-line1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 3.2rem; 
+            font-weight: 500;
+            color: var(--accent-dark);
+            opacity: 0.45;
+            line-height: 1.2;
+        }
+
+        .center-quote-line2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 3.2rem;
+            font-weight: 500;
+            color: var(--accent-pink); 
+            opacity: 0.65;
+            line-height: 1.2;
+            padding-left: 60px;
+        }
+
+        /* --- SIDE FLOATING DOCK --- */
+        .dock-container {
+            position: absolute;
+            right: 24px;
+            top: 48%; 
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .dock {
+            background: var(--container-bg);
+            border: 1.5px solid var(--stroke-dark-fine);
+            padding: 12px;
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            transition: all 0.4s ease;
+        }
+
+        .dock-item {
+            width: 46px;
+            height: 46px;
+            background-color: var(--dock-item-bg);
+            color: var(--accent-dark);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .dock-item:hover {
+            background-color: var(--accent-dark);
+            transform: scale(1.12) translateX(-4px);
+            color: var(--dock-hover-text);
+        }
+
+        .dock-item::after {
+            content: attr(data-title);
+            position: absolute;
+            right: 64px;
+            background: var(--accent-dark);
+            color: var(--dock-hover-text);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .dock-item:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* --- BOTTOM CORNER MINI MEDIA HUB --- */
+        .media-widget {
+            position: absolute;
+            bottom: 100px; 
+            left: 60px;
+            z-index: 10;
+            background: var(--container-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid var(--stroke-dark-fine);
+            padding: 10px 18px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+        }
+
+        .audio-wave {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            width: 16px;
+            height: 14px;
+        }
+
+        .audio-bar {
+            width: 2.5px;
+            background-color: var(--accent-dark);
+            border-radius: 2px;
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+
+        .audio-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+        .audio-bar:nth-child(2) { height: 95%; animation-delay: 0.3s; }
+        .audio-bar:nth-child(3) { height: 60%; animation-delay: 0.15s; }
+
+        .media-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .media-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.3px;
+        }
+
+        .media-artist {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1.0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="css-artwork-layer">
+        <div class="css-blob-navbar"></div>
+        <div class="stroke-curve-left"></div>
+        <div class="stroke-curve-bottom"></div>
+        <div class="stroke-ring-right"></div>
+        <div class="solid-dot-top-right"></div>
+    </div>
+
+    <div class="leaf-artwork-wrapper">
+        <img src="leaf.png" class="bg-leaf-artwork" alt="Minimalist Monstera Leaf Design">
+    </div>
+
+    <div class="search-container">
+        <div class="search-form-wrapper">
+            <i class="ri-search-2-line search-icon"></i>
+            <form action="https://www.google.com/search" method="get" autocomplete="off" style="width: 100%;">
+                <input type="text" name="q" id="search-input" class="search-box" placeholder="Search workspace...">
+            </form>
+            <div class="search-actions-right">
+                <i class="ri-close-line" id="clear-search" title="Clear" style="display: none;"></i>
+            </div>
+        </div>
+        <button id="theme-toggle" class="header-theme-toggle" title="Toggle Dark/Light Mode">
+            <i class="ri-moon-line" id="theme-icon"></i>
+        </button>
+    </div>
+
+    <div class="widget-clock">
+        <div id="time">00:00</div>
+        <div class="clock-details">
+            <div id="day-name">Loading...</div>
+            <div class="clock-dot"></div>
+            <div id="date">Loading...</div>
+        </div>
+    </div>
+
+    <div class="center-quote-container">
+        <div class="center-quote-line1">Quiet mind,</div>
+        <div class="center-quote-line2">creative soul.</div>
+    </div>
+
+    <div class="dock-container">
+        <nav class="dock">
+            <a href="vscode://" class="dock-item" data-title="VS Code"><i class="ri-code-s-slash-line"></i></a>
+            <a href="https://github.com" class="dock-item" data-title="GitHub"><i class="ri-github-fill"></i></a>
+            <a href="https://notion.so" class="dock-item" data-title="Notion"><i class="ri-book-open-line"></i></a>
+            <a href="https://calendar.google.com" class="dock-item" data-title="Calendar"><i class="ri-calendar-todo-line"></i></a>
+            <a href="discord://" class="dock-item" data-title="Discord"><i class="ri-discord-fill"></i></a>
+            <a href="https://web.whatsapp.com" class="dock-item" data-title="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+            <a href="https://youtube.com" class="dock-item" data-title="YouTube"><i class="ri-youtube-fill"></i></a>
+            <a href="spotify://" class="dock-item" data-title="Spotify"><i class="ri-spotify-fill"></i></a>
+        </nav>
+    </div>
+
+    <div class="media-widget">
+        <div class="audio-wave">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+        </div>
+        <div class="media-info">
+            <span class="media-title">Focus Flow</span>
+            <span class="media-artist">Ambient Nature Mix</span>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const clearBtn = document.getElementById('clear-search');
+
+        searchInput.addEventListener('input', () => {
+            clearBtn.style.display = searchInput.value ? 'block' : 'none';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchInput.focus();
+            clearBtn.style.display = 'none';
+        });
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            document.getElementById('time').textContent = `${hours}:${minutes}`;
+
+            const dayOptions = { weekday: 'long' };
+            document.getElementById('day-name').textContent = now.toLocaleDateString('en-US', dayOptions);
+
+            const dateOptions = { month: 'short', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', dateOptions);
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        /* --- THEME TOGGLE FUNCTIONALITY --- */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'ri-sun-line';
+            } else {
+                themeIcon.className = 'ri-moon-line';
+            }
+        }
+    </script>
+</body>
+</html>
