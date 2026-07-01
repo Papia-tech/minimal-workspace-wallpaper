@@ -24,11 +24,12 @@
             --text-main: #132a20;
             --text-muted: #41584c;
             --shadow-sm: 0 4px 24px rgba(19, 42, 32, 0.06);
-            --shadow-md: 0 12px 40px rgba(19, 42, 32, 0.1);
-            --container-bg: rgba(255, 255, 255, 0.55);
-            --search-bg: rgba(255, 255, 255, 0.65);
-            --search-focus-bg: rgba(255, 255, 255, 0.95);
-            --dock-item-bg: rgba(255, 255, 255, 0.85);
+            --shadow-md: 0 12px 40px rgba(19, 42, 32, 0.12);
+            --shadow-lg: 0 16px 48px rgba(19, 42, 32, 0.16);
+            --container-bg: rgba(255, 255, 255, 0.45);
+            --search-bg: rgba(255, 255, 255, 0.45);
+            --search-focus-bg: rgba(255, 255, 255, 0.85);
+            --dock-item-bg: rgba(255, 255, 255, 0.4);
             --dock-hover-text: #fff;
         }
 
@@ -46,10 +47,11 @@
             --text-muted: #809c8c;
             --shadow-sm: 0 4px 24px rgba(0, 0, 0, 0.4);
             --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
-            --container-bg: rgba(19, 42, 32, 0.45);
-            --search-bg: rgba(19, 42, 32, 0.55);
-            --search-focus-bg: rgba(19, 42, 32, 0.85);
-            --dock-item-bg: rgba(27, 67, 50, 0.5);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --container-bg: rgba(19, 42, 32, 0.35);
+            --search-bg: rgba(19, 42, 32, 0.35);
+            --search-focus-bg: rgba(19, 42, 32, 0.75);
+            --dock-item-bg: rgba(27, 67, 50, 0.3);
             --dock-hover-text: #0f1a14;
         }
 
@@ -127,17 +129,6 @@
             border-radius: 50%;
         }
 
-        .css-blob-navbar {
-            position: absolute;
-            top: 15%;
-            left: -100px;
-            width: 400px;
-            height: 700px;
-            background-color: var(--accent-pink-solid);
-            filter: blur(50px);
-            border-radius: 50%;
-        }
-
         /* --- BOTTOM RIGHT CORNER ORGANIC LEAF --- */
         .leaf-artwork-wrapper {
             position: absolute;
@@ -160,7 +151,6 @@
             transition: filter 0.4s ease;
         }
         
-        /* THIS FIXES THE BLACK LEAF IN DARK MODE */
         [data-theme="dark"] .bg-leaf-artwork {
             filter: invert(1) brightness(0.9) sepia(0.1) hue-rotate(90deg);
         }
@@ -216,16 +206,29 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- SEARCH HUB WITH THEME TOGGLE --- */
+        /* --- INTEGRATED GLASSBAR NAVBAR --- */
         .search-container {
             position: absolute;
-            top: 40px;
-            right: 24px;
-            z-index: 10;
-            width: 360px; 
+            top: 32px;
+            right: 32px;
+            z-index: 100;
+            width: 420px; 
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 6px;
+            background: var(--container-bg);
+            border: 1.5px solid var(--stroke-dark-fine);
+            padding: 1px 8px 1px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--stroke-dark-accent);
+            box-shadow: var(--shadow-md);
         }
 
         .search-form-wrapper {
@@ -237,71 +240,61 @@
 
         .search-box {
             width: 100%;
-            padding: 12px 40px 12px 42px; 
-            border-radius: 30px;
-            border: 1.5px solid var(--stroke-dark-accent);
-            background: var(--search-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 10px 32px 10px 28px; 
+            border: none;
+            background: transparent;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-main);
             outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-sm);
         }
 
         .search-box::placeholder {
             color: var(--text-muted);
-            opacity: 0.75;
-        }
-
-        .search-box:focus {
-            background: var(--search-focus-bg);
-            border-color: var(--accent-dark); 
-            box-shadow: var(--shadow-md);
+            opacity: 0.65;
         }
 
         .search-form-wrapper .search-icon {
             position: absolute;
-            left: 18px;
+            left: 2px;
             color: var(--text-muted);
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             pointer-events: none;
+            opacity: 0.8;
         }
 
         .search-actions-right {
             position: absolute;
-            right: 18px;
+            right: 8px;
             display: flex;
             align-items: center;
             color: var(--text-muted);
         }
 
         .search-actions-right i {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
         }
 
-        /* Inline Header Theme Toggle */
+        .search-actions-right i:hover {
+            opacity: 1;
+        }
+
         .header-theme-toggle {
-            width: 66px;
-            height: 46px;
+            width: 42px;
+            height: 42px;
             background: var(--search-bg);
-            border: 1.5px solid var(--stroke-dark-accent);
+            border: 1px solid transparent;
             color: var(--accent-dark);
-            border-radius: 10px;
-            padding-right: 12px;
-            padding-left: 12px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             cursor: pointer;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-sm);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             flex-shrink: 0;
             outline: none;
@@ -310,8 +303,7 @@
         .header-theme-toggle:hover {
             background-color: var(--accent-dark);
             color: var(--dock-hover-text);
-            transform: scale(1.08);
-            box-shadow: var(--shadow-md);
+            transform: scale(1.05);
         }
 
         /* --- BACKGROUND QUOTE TEXT --- */
@@ -329,7 +321,7 @@
             font-size: 3.2rem; 
             font-weight: 500;
             color: var(--accent-dark);
-            opacity: 0.45;
+            opacity: 0.6;
             line-height: 1.2;
         }
 
@@ -339,77 +331,89 @@
             font-size: 3.2rem;
             font-weight: 500;
             color: var(--accent-pink); 
-            opacity: 0.65;
+            opacity: 0.7;
             line-height: 1.2;
             padding-left: 60px;
         }
 
-        /* --- SIDE FLOATING DOCK --- */
+        /* --- HIGHLY IMPROVED DOCK SECTION --- */
         .dock-container {
             position: absolute;
-            right: 24px;
-            top: 48%; 
+            right: 32px;
+            top: 52%; 
             transform: translateY(-50%);
-            z-index: 10;
+            z-index: 100;
         }
 
         .dock {
             background: var(--container-bg);
             border: 1.5px solid var(--stroke-dark-fine);
-            padding: 12px;
-            border-radius: 32px;
+            padding: 10px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             box-shadow: var(--shadow-md);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            transition: all 0.4s ease;
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .dock-item {
             width: 46px;
             height: 46px;
-            background-color: var(--dock-item-bg);
             color: var(--accent-dark);
-            border-radius: 50%;
+            border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: 
+                transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                background-color 0.25s ease, 
+                color 0.25s ease,
+                border-color 0.25s ease,
+                opacity 0.25s ease;
         }
 
+        /* Elegant floating stack item interaction */
         .dock-item:hover {
             background-color: var(--accent-dark);
-            transform: scale(1.12) translateX(-4px);
+            border-color: var(--accent-dark);
             color: var(--dock-hover-text);
+            
+            z-index: 5;
         }
 
+        /* Sleek Modern Tooltips */
         .dock-item::after {
             content: attr(data-title);
             position: absolute;
-            right: 64px;
+            right: 68px;
             background: var(--accent-dark);
             color: var(--dock-hover-text);
             padding: 6px 14px;
             font-size: 0.75rem;
-            font-weight: 600;
-            border-radius: 20px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            border-radius: 12px;
             white-space: nowrap;
             opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.2s ease;
+            transform: translateX(12px) scale(0.9);
+            transition: 
+                opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
+            box-shadow: var(--shadow-sm);
         }
 
         .dock-item:hover::after {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) scale(1);
         }
 
         /* --- BOTTOM CORNER MINI MEDIA HUB --- */
@@ -423,7 +427,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1.5px solid var(--stroke-dark-fine);
             padding: 10px 18px;
-            border-radius: 30px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -441,7 +445,7 @@
 
         .audio-bar {
             width: 2.5px;
-            background-color: var(--accent-dark);
+            background-color: var(--accent-pink);
             border-radius: 2px;
             animation: bounce 0.8s ease-in-out infinite alternate;
         }
@@ -477,7 +481,6 @@
 <body>
 
     <div class="css-artwork-layer">
-        <div class="css-blob-navbar"></div>
         <div class="stroke-curve-left"></div>
         <div class="stroke-curve-bottom"></div>
         <div class="stroke-ring-right"></div>
@@ -485,7 +488,7 @@
     </div>
 
     <div class="leaf-artwork-wrapper">
-        <img src="leaf.png" class="bg-leaf-artwork" alt="Minimalist Monstera Leaf Design">
+        <img src="leafs.png" class="bg-leaf-artwork" alt="Minimalist Monstera Leaf Design">
     </div>
 
     <div class="search-container">
@@ -495,7 +498,7 @@
                 <input type="text" name="q" id="search-input" class="search-box" placeholder="Search workspace...">
             </form>
             <div class="search-actions-right">
-                <i class="ri-close-line" id="clear-search" title="Clear" style="display: none;"></i>
+                <i class="ri-close-line" id="clear-search" style="display: none;"></i>
             </div>
         </div>
         <button id="theme-toggle" class="header-theme-toggle" title="Toggle Dark/Light Mode">
